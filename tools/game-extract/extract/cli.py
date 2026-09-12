@@ -1,5 +1,4 @@
 import argparse
-import json
 import os
 import sys
 from pathlib import Path
@@ -10,13 +9,6 @@ from . import gamedir, locales, table, verify
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_OUTPUT = REPO_ROOT / "data" / "game" / "strings.json"
 UNITY_VERSION = "6000.0.62f1"
-
-
-def _load_previous(path):
-    path = Path(path)
-    if not path.is_file():
-        return None
-    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _build(game_dir):
@@ -40,11 +32,12 @@ def main(argv=None):
 
     try:
         game_dir = gamedir.resolve_game_dir(args.game_dir, dict(os.environ))
-    except gamedir.GameDirError as exc:
+        gamedir.assert_outside_game_dir(game_dir, args.output)
+        previous = verify.load_artifact(args.output)
+    except (gamedir.GameDirError, verify.ArtifactError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 
-    gamedir.assert_outside_game_dir(game_dir, args.output)
     built, known = _build(game_dir)
 
     missing = verify.check_oracle(built, known)
@@ -53,8 +46,7 @@ def main(argv=None):
             print(f"error: {len(names)} {locale} name(s) absent: {names[:5]}", file=sys.stderr)
         return 1
 
-    previous = _load_previous(args.output)
-    shrink = verify.check_floor(built, previous)
+    shrink = verify.check_floor(built, previous, previous_source=args.output)
     if shrink and not args.allow_shrink:
         print(f"error: {shrink}", file=sys.stderr)
         return 1
