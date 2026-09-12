@@ -1,32 +1,7 @@
-import struct
-
 import pytest
 
 from extract import table
-
-
-def aligned(raw):
-    out = struct.pack("<I", len(raw)) + raw
-    return out + b"\x00" * (-len(out) % 4)
-
-
-def record(key, values):
-    body = aligned(key.encode("utf-8"))
-    body += struct.pack("<II", 0, len(values))
-    for value in values:
-        body += aligned(value.encode("utf-8") if isinstance(value, str) else value)
-    return body
-
-
-def sixteen(first="Landslide"):
-    return [first] + [f"value {n}" for n in range(1, 16)]
-
-
-JOIN = struct.pack("<I", 16) + b"\x00" * 20
-
-
-def table_bytes(*records):
-    return JOIN.join(records)
+from tests.support import record, sixteen, table_bytes
 
 
 def test_single_record_round_trips():
