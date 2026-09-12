@@ -22,6 +22,13 @@ def sixteen(first="Landslide"):
     return [first] + [f"value {n}" for n in range(1, 16)]
 
 
+JOIN = struct.pack("<I", 16) + b"\x00" * 20
+
+
+def table_bytes(*records):
+    return JOIN.join(records)
+
+
 def test_single_record_round_trips():
     data = b"\x00" * 8 + record("Generated/hupg_landslide_name", sixteen())
     parsed = table.parse_table(data)
@@ -31,9 +38,9 @@ def test_single_record_round_trips():
 
 
 def test_two_records_both_parse():
-    data = (
-        record("Generated/hupg_a_name", sixteen("A"))
-        + record("Generated/pass_b_name", sixteen("B"))
+    data = table_bytes(
+        record("Generated/hupg_a_name", sixteen("A")),
+        record("Generated/pass_b_name", sixteen("B")),
     )
     parsed = table.parse_table(data)
     assert len(parsed) == 2
@@ -43,8 +50,9 @@ def test_two_records_both_parse():
 @pytest.mark.parametrize("filler", ["x", "xx", "xxx", "xxxx"])
 def test_alignment_padding_of_every_residue(filler):
     values = [filler] + [f"v{n}" for n in range(1, 16)]
-    data = record(f"Generated/hupg_{filler}_name", values) + record(
-        "Generated/hupg_tail_name", sixteen("tail")
+    data = table_bytes(
+        record(f"Generated/hupg_{filler}_name", values),
+        record("Generated/hupg_tail_name", sixteen("tail")),
     )
     parsed = table.parse_table(data)
     assert parsed["Generated/hupg_tail_name"][0] == "tail"
@@ -86,8 +94,27 @@ def test_invalid_utf8_names_key_and_index():
 
 
 def test_duplicate_key_raises():
-    data = record("Generated/hupg_dup_name", sixteen()) * 2
+    body = record("Generated/hupg_dup_name", sixteen())
     with pytest.raises(table.TableFormatError, match="duplicate"):
+        table.parse_table(table_bytes(body, body))
+
+
+def test_re_namespaced_middle_record_breaks_the_tiling():
+    data = table_bytes(
+        record("Generated/b_name", sixteen("A")),
+        record("Runtime/b_name", sixteen("B")),
+        record("Generated/c_name", sixteen("C")),
+    )
+    with pytest.raises(table.TableFormatError, match="do not tile"):
+        table.parse_table(data)
+
+
+def test_a_gap_between_records_is_rejected():
+    data = table_bytes(
+        record("Generated/hupg_a_name", sixteen("A")),
+        b"\x00" * 8 + record("Generated/hupg_b_name", sixteen("B")),
+    )
+    with pytest.raises(table.TableFormatError, match="do not tile"):
         table.parse_table(data)
 
 

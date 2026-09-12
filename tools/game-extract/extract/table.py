@@ -3,6 +3,9 @@ import struct
 KEY_PREFIX = "Generated/"
 EXPECTED_LOCALE_COUNT = 16
 
+# uint32 16 then 20 zero bytes; every one of the live asset's 888 joins.
+RECORD_HEADER_BYTES = 24
+
 
 class TableFormatError(RuntimeError):
     pass
@@ -53,14 +56,26 @@ def parse_table(data):
     needle = KEY_PREFIX.encode("utf-8")
     records = {}
     search_from = 0
+    previous_end = None
     while True:
         found = data.find(needle, search_from)
         if found < 0:
             break
-        key, values, _end = parse_record(data, found - 4)
+        start = found - 4
+        if previous_end is not None:
+            expected = previous_end + RECORD_HEADER_BYTES
+            if start != expected:
+                raise TableFormatError(
+                    f"records do not tile: the record before offset {start} ends "
+                    f"at {previous_end}, so the next key must start at {expected}. "
+                    f"A record between them was skipped or its key does not begin "
+                    f"with {KEY_PREFIX!r}."
+                )
+        key, values, end = parse_record(data, start)
         if key in records:
             raise TableFormatError(f"duplicate key {key!r}")
         records[key] = values
+        previous_end = end
         search_from = found + len(needle)
     if not records:
         raise TableFormatError(
