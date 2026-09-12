@@ -1,5 +1,10 @@
 # Ball X Pit - Chinese Translations (中文翻译)
 
+> **Superseded 2026-09-12.** Every name below was re-checked against the game's own
+> localisation table and `zh-CN.json` now carries the result. The ✅/⚠️ marks in this
+> file reflect guide sourcing, not the game, and ten of them were wrong. Kept for
+> provenance only - do not translate from it.
+
 ## Sources
 - Steam Community Guide: https://steamcommunity.com/sharedfiles/filedetails/?id=3589448013
 - Keylol Guide 1: https://keylol.com/t1018125-1-1

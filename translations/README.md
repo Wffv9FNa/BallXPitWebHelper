@@ -6,33 +6,60 @@ This directory contains translation files for the Ball X Pit Helper app.
 
 ### `zh-CN.json` - Simplified Chinese Translations
 
-This file contains all Chinese translations for the app.
+This file contains all Chinese translations for the app. It covers **every** ball
+and passive in `data/` - 90 balls and 71 passives as of 2026-09-12.
 
 **Verification Status:**
-- ✅ = **Verified** - Found in official Steam/community guides
-- ⚠️ = **Needs Verification** - Educated guess based on game context
+
+The `verified` flag describes the **name only**.
+
+- ✅ = **Verified** - the Chinese name is byte-identical to a string in the game's
+  own localisation table (`Balls_Data/resources.assets`), checked 2026-09-12.
+- ⚠️ = **Needs Verification** - not found in that table.
+
+All 161 entries are currently ✅.
+
+This is a stricter standard than the one this file used before. The previous ✅
+meant "found in an official Steam or community guide", which turned out to be
+unreliable: ten names disagreed with the game - and seven of those ten were
+marked ✅. None of the ten appear anywhere in the game's strings. Those guides
+contain their authors' own translations, not the shipped strings. **Do not re-mark an entry ✅ on the strength of a guide.** Only the game
+itself counts.
+
+**Descriptions are not covered by the flag.** They are unverified community
+translations inherited from earlier work. An entry whose `description` is `""`
+falls back to the English text from `data/balls.ts` or `data/passives.ts`
+(see `getBallDescription` in `lib/i18n/useTranslation.ts`), which is why leaving
+it empty is preferable to guessing.
 
 ## How to Review and Edit
 
 ### 1. Open the file
+
 Open `zh-CN.json` in any text editor (VS Code, Notepad++, etc.)
 
 ### 2. Review translations
-Look for entries marked with `"verified": "⚠️"` - these need verification
+
+Names are settled. The open work is **descriptions**: 82 of 161 entries still
+have an empty one and fall back to English.
 
 ### 3. Edit translations
-Simply change the Chinese text. For example:
+
+Change the Chinese text, leaving `verified` alone unless you have checked the
+name against the game itself. For example:
 
 **Before:**
+
 ```json
 "ghost": {
   "name": "幽灵",
-  "description": "穿过敌人",
-  "verified": "⚠️"
+  "description": "",
+  "verified": "✅"
 }
 ```
 
-**After (if you verify it's correct):**
+**After (adding a description):**
+
 ```json
 "ghost": {
   "name": "幽灵",
@@ -41,32 +68,18 @@ Simply change the Chinese text. For example:
 }
 ```
 
-### 4. Items that need the most review
+### 4. Where the names came from
 
-**Base Balls (needs verification):**
-- ghost (幽灵)
-- iron (黑铁)
-- dark (黑暗)
-- wind (风)
-- light (光明)
-- laser-h (激光（水平）)
-- laser-v (激光（垂直）)
-- earthquake (地震)
-- brood-mother (育母)
-- cell (细胞)
+The game ships a localisation table inside `Balls_Data/resources.assets` in the
+install directory, holding every UI string keyed by internal ID
+(`landslide_name`, `landslide_desc`, ...) across at least seven languages. Those
+internal IDs line up 1:1 with this project's IDs. Both the Chinese and English
+names in this file were confirmed present there, 161/161.
 
-**Base Passives (needs descriptions):**
-- baby-rattle (婴儿拨浪鼓)
-- war-horn (战争号角)
-- reachers-spear (长枪)
-- deadeyes-amulet (死眼护符)
-
-### 5. Verify with in-game client
-
-If you have access to the Chinese version of Ball X Pit:
-1. Check the actual in-game names
-2. Update the JSON file with correct names
-3. Change `"verified": "⚠️"` to `"verified": "✅"`
+That table also holds Chinese **descriptions**, but they arrive with unresolved
+`{[placeholder]}` tokens (`每次反弹使弹珠的速度提高{[acceleration]}`) rather than
+concrete numbers, so they were not imported. Resolving them is the natural next
+step for filling the 82 empty descriptions.
 
 ## JSON Format Tips
 
@@ -78,20 +91,16 @@ If you have access to the Chinese version of Ball X Pit:
 ## Finding Ball IDs
 
 Ball IDs in the JSON match the image filenames in `/public/balls/`:
+
 - `bleed.png` → `"bleed"`
 - `frost-ray.png` → `"frost-ray"`
 - `black-hole.png` → `"black-hole"`
 
-## Future Use
+Entry order matches `data/balls.ts` and `data/passives.ts`, so the two read
+side by side.
 
-Once reviewed, this file will be used to:
-1. Display Chinese names in the app
-2. Show Chinese descriptions in detail panels
-3. Translate all UI elements
+## Other files here
 
-## Questions?
-
-If you're unsure about a translation:
-1. Leave it as is with `"verified": "⚠️"`
-2. Add a note in the description
-3. We can update it later
+`chinese-translations.md`, `discrepancies-report.md` and `steam-guide-mapping.md`
+are superseded working notes from the Steam-guide sourcing effort. Their ✅/⚠️
+marks predate the in-game verification and should not be trusted.

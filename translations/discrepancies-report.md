@@ -1,5 +1,9 @@
 # Translation Discrepancies Report
 
+> **Superseded 2026-09-12.** Every rename and recommendation below has been applied,
+> and the names were then re-sourced from the game's own localisation table, which
+> overrode several of the conclusions here. Kept for provenance only.
+
 ## Ball ID Mismatches in zh-CN.json
 
 These JSON keys don't match the actual ball IDs in the codebase:

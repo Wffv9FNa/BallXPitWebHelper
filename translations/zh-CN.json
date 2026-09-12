@@ -3,7 +3,9 @@
     "language": "zh-CN",
     "name": "简体中文",
     "status": "draft",
-    "notes": "✅ = Verified from official sources | ⚠️ = Educated guess - needs verification"
+    "notes": "The \"verified\" flag covers \"name\" only. ✅ = the Chinese name is byte-identical to a string in the game's own localisation table. ⚠️ = unverified.",
+    "nameSource": "Ball x Pit localisation table (Balls_Data/resources.assets), verified 2026-09-12",
+    "descriptionNote": "Descriptions are unverified community translations and are not covered by \"verified\". An empty description falls back to the English text."
   },
   "ui": {
     "title": "Ball x Pit 助手",
@@ -73,7 +75,8 @@
     "frost-fire": "霜火",
     "parasite": "寄生",
     "nuclear": "核",
-    "nature": "自然"
+    "nature": "自然",
+    "time": "时间"
   },
   "balls": {
     "bleed": {
@@ -84,42 +87,42 @@
     "burn": {
       "name": "燃烧",
       "description": "施加2层燃烧。受到燃烧的敌人每秒受到每层1点伤害（最多5层）",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "freeze": {
       "name": "冰冻",
       "description": "冰冻敌人0.5秒",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "ghost": {
       "name": "幽灵",
       "description": "穿过敌人",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "iron": {
       "name": "黑铁",
       "description": "造成10-40伤害",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "lightning": {
       "name": "闪电",
       "description": "对敌人施加感电。感电的敌人在受到4次攻击后受到100-200伤害",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "poison": {
       "name": "中毒",
       "description": "施加2层中毒。中毒的敌人每秒受到每层1点伤害（最多5层）",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "charm": {
       "name": "魅惑",
       "description": "每次命中有2%几率魅惑敌人，效果持续9秒",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "dark": {
       "name": "黑暗",
       "description": "对敌人施加诅咒。被诅咒的敌人在受到8次攻击后受到200-300伤害",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "wind": {
       "name": "疾风",
@@ -129,41 +132,56 @@
     "light": {
       "name": "光明",
       "description": "使敌人致盲，效果持续2.5秒",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "laser-h": {
       "name": "激光（水平）",
       "description": "对同一行的所有敌人造成15-25伤害",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "laser-v": {
       "name": "激光（垂直）",
       "description": "对同一列的所有敌人造成15-25伤害",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "earthquake": {
       "name": "地震",
       "description": "对场上所有敌人造成1-20伤害",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "brood-mother": {
       "name": "育母",
       "description": "每次命中敌人时生成1只蜘蛛。蜘蛛将会对随机敌人发起攻击",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "cell": {
       "name": "细胞",
       "description": "每次命中敌人时分裂出1-2颗迷你细胞弹珠",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "vampire": {
       "name": "吸血鬼",
       "description": "每次命中敌人时有30%几率窃取1点生命值",
-      "verified": "⚠️"
+      "verified": "✅"
     },
     "egg-sac": {
       "name": "巢囊",
       "description": "命中敌人时分裂出1颗巢囊",
+      "verified": "✅"
+    },
+    "stone": {
+      "name": "岩石",
+      "description": "默认解锁。坚实的石球造成稳定伤害",
+      "verified": "✅"
+    },
+    "flesh": {
+      "name": "肉块",
+      "description": "",
+      "verified": "✅"
+    },
+    "time": {
+      "name": "时间",
+      "description": "",
       "verified": "✅"
     },
     "assassin": {
@@ -176,9 +194,19 @@
       "description": "每次命中有30%几率使敌人狂暴,效果持续6秒。",
       "verified": "✅"
     },
+    "black-hole": {
+      "name": "黑洞",
+      "description": "立即击杀命中的第一个敌人(非Boss），但是之后将自毁。",
+      "verified": "✅"
+    },
     "blizzard": {
       "name": "暴风雪",
       "description": "冰冻2格范围内的所有敌人并造成1-50伤害",
+      "verified": "✅"
+    },
+    "bomb": {
+      "name": "炸弹",
+      "description": "命中敌人时爆炸,对周遭敌人造成150-300伤害。",
       "verified": "✅"
     },
     "flash": {
@@ -216,6 +244,11 @@
       "description": "对同一行同一列的所有敌人造成24-36伤害。",
       "verified": "✅"
     },
+    "incubus": {
+      "name": "梦淫妖",
+      "description": "每次命中时有4%几率魅惑敌人,效果持续9秒。被魅惑的敌人将诅咒周遭的敌人。",
+      "verified": "✅"
+    },
     "inferno": {
       "name": "炼狱",
       "description": "每秒对2格范围内的敌人施加1层燃烧。",
@@ -251,6 +284,11 @@
       "description": "持续释放岩浆池。经过岩浆池的敌人将承受15-30伤害以及1层燃烧",
       "verified": "✅"
     },
+    "mosquito-king": {
+      "name": "蚊王",
+      "description": "每次命中敌人时生成1只蚊子。蚊子将会对随机敌人发起攻击",
+      "verified": "✅"
+    },
     "mosquito-swarm": {
       "name": "蚊群",
       "description": "分裂出3-6只蚊子。蚊子将会对随机敌人发起攻击，并造成80-120伤害。",
@@ -259,6 +297,11 @@
     "noxious": {
       "name": "毒云",
       "description": "穿过敌人,并且对其周遭3格范围内的所有敌人施加2层中毒。",
+      "verified": "✅"
+    },
+    "nuclear-bomb": {
+      "name": "核弹",
+      "description": "命中敌人时爆炸,对周遭敌人造成300-500伤害,并且对场上所有人施加1层核辐射",
       "verified": "✅"
     },
     "overgrowth": {
@@ -286,6 +329,11 @@
       "description": "穿过敌人。此弹珠受到沙暴笼罩,每秒造成10-20伤害并使敌人致盲",
       "verified": "✅"
     },
+    "satan": {
+      "name": "撒旦",
+      "description": "存在于场上时,每秒对所有敌人施加1层燃烧(最高5层)",
+      "verified": "✅"
+    },
     "shotgun": {
       "name": "霰弹枪",
       "description": "每次命中墙壁时发射3-7颗迷你黑铁弹珠。",
@@ -296,14 +344,34 @@
       "description": "穿过敌人,有30%几率窃取1生命值并且使敌人的攻击伤害降低20%。",
       "verified": "✅"
     },
+    "spider-queen": {
+      "name": "蜘蛛女王",
+      "description": "每次命中敌人时有25%几率创造1颗巢囊",
+      "verified": "✅"
+    },
     "storm": {
       "name": "风暴",
       "description": "释放闪电打击周围的敌人,每秒造成1-40伤害。",
       "verified": "✅"
     },
+    "succubus": {
+      "name": "魅魔",
+      "description": "每次命中时有4%几率魅惑敌人,效果持续9秒。命中被魅惑的敌人时恢复1点生命值。",
+      "verified": "✅"
+    },
+    "sun": {
+      "name": "太阳",
+      "description": "使视野中的所有敌人致盲,并且每秒施加1层燃烧(最高5层)。",
+      "verified": "✅"
+    },
     "swamp": {
       "name": "沼泽",
       "description": "持续释放焦油池。焦油池将对经过的敌人造成15-30伤害,持续7秒的50%减速",
+      "verified": "✅"
+    },
+    "vampire-lord": {
+      "name": "吸血鬼领主",
+      "description": "每次命中时施加3层流血。如果敌人身上有10层流血效果或以上,击中敌人时将消耗所有流血层数，并为你恢复1点生命值。",
       "verified": "✅"
     },
     "virus": {
@@ -321,68 +389,13 @@
       "description": "冰冻经过的敌人,效果持续0.8秒",
       "verified": "✅"
     },
-    "bomb": {
-      "name": "炸弹",
-      "description": "命中敌人时爆炸,对周遭敌人造成150-300伤害。",
-      "verified": "✅"
-    },
-    "nuclear-bomb": {
-      "name": "核弹",
-      "description": "命中敌人时爆炸,对周遭敌人造成300-500伤害,并且对场上所有人施加1层核辐射",
-      "verified": "✅"
-    },
-    "sun": {
-      "name": "太阳",
-      "description": "使视野中的所有敌人致盲,并且每秒施加1层燃烧(最高5层)。",
-      "verified": "✅"
-    },
-    "black-hole": {
-      "name": "黑洞",
-      "description": "立即击杀命中的第一个敌人(非Boss），但是之后将自毁。",
-      "verified": "✅"
-    },
-    "succubus": {
-      "name": "魅魔",
-      "description": "每次命中时有4%几率魅惑敌人,效果持续9秒。命中被魅惑的敌人时恢复1点生命值。",
-      "verified": "✅"
-    },
-    "incubus": {
-      "name": "梦淫妖",
-      "description": "每次命中时有4%几率魅惑敌人,效果持续9秒。被魅惑的敌人将诅咒周遭的敌人。",
-      "verified": "✅"
-    },
-    "satan": {
-      "name": "撒旦",
-      "description": "存在于场上时,每秒对所有敌人施加1层燃烧(最高5层)",
-      "verified": "✅"
-    },
-    "mosquito-king": {
-      "name": "蚊王",
-      "description": "每次命中敌人时生成1只蚊子。蚊子将会对随机敌人发起攻击",
-      "verified": "✅"
-    },
-    "spider-queen": {
-      "name": "蜘蛛女王",
-      "description": "每次命中敌人时有25%几率创造1颗巢囊",
-      "verified": "✅"
-    },
-    "vampire-lord": {
-      "name": "吸血鬼领主",
-      "description": "每次命中时施加3层流血。如果敌人身上有10层流血效果或以上,击中敌人时将消耗所有流血层数，并为你恢复1点生命值。",
-      "verified": "✅"
-    },
     "nosferatu": {
       "name": "诺斯费拉图",
       "description": "每次反弹时生成1只吸血蝙蝠。吸血蝙蝠将飞向一名随机敌人,命中时造成132-176伤害",
       "verified": "✅"
     },
-    "stone": {
-      "name": "岩石",
-      "description": "默认解锁。坚实的石球造成稳定伤害",
-      "verified": "✅"
-    },
     "landslide": {
-      "name": "山崩",
+      "name": "地裂",
       "description": "创造毁灭性的山崩效果对敌人造成伤害",
       "verified": "✅"
     },
@@ -392,7 +405,7 @@
       "verified": "✅"
     },
     "catapult": {
-      "name": "投石机",
+      "name": "投石车",
       "description": "以投石机的力量向敌人发射弹丸",
       "verified": "✅"
     },
@@ -402,7 +415,7 @@
       "verified": "✅"
     },
     "banished-flame": {
-      "name": "放逐之焰",
+      "name": "禁忌之焰",
       "description": "吞噬敌人的暗黑火焰",
       "verified": "✅"
     },
@@ -415,82 +428,462 @@
       "name": "激光切割器",
       "description": "精准切割敌人的强大激光",
       "verified": "✅"
+    },
+    "armageddon": {
+      "name": "天劫",
+      "description": "",
+      "verified": "✅"
+    },
+    "banshee": {
+      "name": "尖啸女妖",
+      "description": "",
+      "verified": "✅"
+    },
+    "drill": {
+      "name": "钻头",
+      "description": "",
+      "verified": "✅"
+    },
+    "elemental": {
+      "name": "元素",
+      "description": "",
+      "verified": "✅"
+    },
+    "erosion": {
+      "name": "侵蚀",
+      "description": "",
+      "verified": "✅"
+    },
+    "flesh-mound": {
+      "name": "肉堆",
+      "description": "",
+      "verified": "✅"
+    },
+    "heart-swallower": {
+      "name": "噬心者",
+      "description": "",
+      "verified": "✅"
+    },
+    "lightning-bug": {
+      "name": "闪电虫",
+      "description": "",
+      "verified": "✅"
+    },
+    "mosquito-kingdom": {
+      "name": "蚊之国",
+      "description": "",
+      "verified": "✅"
+    },
+    "offspring": {
+      "name": "子嗣",
+      "description": "",
+      "verified": "✅"
+    },
+    "petrify": {
+      "name": "石化",
+      "description": "",
+      "verified": "✅"
+    },
+    "reaper": {
+      "name": "死神",
+      "description": "",
+      "verified": "✅"
+    },
+    "sniper": {
+      "name": "狙击手",
+      "description": "",
+      "verified": "✅"
+    },
+    "time-bomb": {
+      "name": "时间炸弹",
+      "description": "",
+      "verified": "✅"
+    },
+    "timestop": {
+      "name": "时间停止",
+      "description": "",
+      "verified": "✅"
+    },
+    "tumor": {
+      "name": "肿瘤",
+      "description": "",
+      "verified": "✅"
+    },
+    "venom": {
+      "name": "剧毒",
+      "description": "",
+      "verified": "✅"
+    },
+    "warp": {
+      "name": "跃迁",
+      "description": "",
+      "verified": "✅"
+    },
+    "x-ray": {
+      "name": "X射线",
+      "description": "",
+      "verified": "✅"
+    },
+    "zombie": {
+      "name": "僵尸",
+      "description": "",
+      "verified": "✅"
     }
   },
   "passives": {
     "baby-rattle": {
-      "name": "婴儿拨浪鼓",
-      "description": "待补充",
-      "verified": "⚠️"
+      "name": "拨浪鼓",
+      "description": "",
+      "verified": "✅"
     },
     "war-horn": {
       "name": "战争号角",
-      "description": "待补充",
-      "verified": "⚠️"
+      "description": "",
+      "verified": "✅"
     },
     "reachers-spear": {
-      "name": "长枪",
-      "description": "待补充",
-      "verified": "⚠️"
+      "name": "突刺之矛",
+      "description": "",
+      "verified": "✅"
     },
     "deadeyes-amulet": {
-      "name": "死眼护符",
-      "description": "待补充",
-      "verified": "⚠️"
+      "name": "靶眼护符",
+      "description": "",
+      "verified": "✅"
     },
-    "horn-of-plenty": {
+    "wretched-onion": {
+      "name": "腐臭洋葱",
+      "description": "",
+      "verified": "✅"
+    },
+    "breastplate": {
+      "name": "胸甲",
+      "description": "",
+      "verified": "✅"
+    },
+    "ghostly-corset": {
+      "name": "幽灵束腰",
+      "description": "",
+      "verified": "✅"
+    },
+    "ethereal-cloak": {
+      "name": "幻影斗篷",
+      "description": "",
+      "verified": "✅"
+    },
+    "vampiric-sword": {
+      "name": "吸血鬼之剑",
+      "description": "",
+      "verified": "✅"
+    },
+    "everflowing-goblet": {
+      "name": "不竭圣杯",
+      "description": "",
+      "verified": "✅"
+    },
+    "spiked-collar": {
+      "name": "尖刺项圈",
+      "description": "",
+      "verified": "✅"
+    },
+    "crown-of-thorns": {
+      "name": "荆棘之冠",
+      "description": "",
+      "verified": "✅"
+    },
+    "radiant-feather": {
+      "name": "辉光之羽",
+      "description": "",
+      "verified": "✅"
+    },
+    "fleet-feet": {
+      "name": "迅捷之靴",
+      "description": "",
+      "verified": "✅"
+    },
+    "diamond-hilted-dagger": {
+      "name": "钻石匕首",
+      "description": "",
+      "verified": "✅"
+    },
+    "sapphire-hilted-dagger": {
+      "name": "蓝宝石匕首",
+      "description": "",
+      "verified": "✅"
+    },
+    "ruby-hilted-dagger": {
+      "name": "红宝石匕首",
+      "description": "",
+      "verified": "✅"
+    },
+    "emerald-hilted-dagger": {
+      "name": "绿宝石匕首",
+      "description": "",
+      "verified": "✅"
+    },
+    "platinum-dumbbell": {
+      "name": "铂金哑铃",
+      "description": "",
+      "verified": "✅"
+    },
+    "sword-breaker": {
+      "name": "断剑者",
+      "description": "",
+      "verified": "✅"
+    },
+    "archers-effigy": {
+      "name": "弓手雕塑",
+      "description": "",
+      "verified": "✅"
+    },
+    "artificial-heart": {
+      "name": "人造之心",
+      "description": "",
+      "verified": "✅"
+    },
+    "bandage-roll": {
+      "name": "绷带卷",
+      "description": "",
+      "verified": "✅"
+    },
+    "bottled-tornado": {
+      "name": "瓶中龙卷风",
+      "description": "",
+      "verified": "✅"
+    },
+    "cursed-elixir": {
+      "name": "诅咒魔药",
+      "description": "",
+      "verified": "✅"
+    },
+    "dynamite": {
+      "name": "雷管",
+      "description": "",
+      "verified": "✅"
+    },
+    "eye-of-the-beholder": {
+      "name": "监视之眼",
+      "description": "",
+      "verified": "✅"
+    },
+    "frozen-spike": {
+      "name": "寒冰尖刺",
+      "description": "",
+      "verified": "✅"
+    },
+    "gemspring": {
+      "name": "宝石泉",
+      "description": "",
+      "verified": "✅"
+    },
+    "ghostly-shield": {
+      "name": "幽灵护盾",
+      "description": "",
+      "verified": "✅"
+    },
+    "golden-bull": {
+      "name": "黄金公牛",
+      "description": "",
+      "verified": "✅"
+    },
+    "hand-fan": {
+      "name": "手扇",
+      "description": "",
+      "verified": "✅"
+    },
+    "hand-mirror": {
+      "name": "手镜",
+      "description": "",
+      "verified": "✅"
+    },
+    "healers-effigy": {
+      "name": "治疗师雕塑",
+      "description": "",
+      "verified": "✅"
+    },
+    "hourglass": {
+      "name": "沙漏",
+      "description": "",
+      "verified": "✅"
+    },
+    "kiss-of-death": {
+      "name": "死亡之吻",
+      "description": "",
+      "verified": "✅"
+    },
+    "lovers-quiver": {
+      "name": "爱之箭袋",
+      "description": "",
+      "verified": "✅"
+    },
+    "magic-staff": {
+      "name": "魔杖",
+      "description": "",
+      "verified": "✅"
+    },
+    "magnet": {
+      "name": "磁铁",
+      "description": "",
+      "verified": "✅"
+    },
+    "midnight-oil": {
+      "name": "午夜煤油",
+      "description": "",
+      "verified": "✅"
+    },
+    "pressure-valve": {
+      "name": "压力阀",
+      "description": "",
+      "verified": "✅"
+    },
+    "protective-charm": {
+      "name": "护身符",
+      "description": "",
+      "verified": "✅"
+    },
+    "rubber-headband": {
+      "name": "弹力头带",
+      "description": "",
+      "verified": "✅"
+    },
+    "shortbow": {
+      "name": "短弓",
+      "description": "",
+      "verified": "✅"
+    },
+    "silver-blindfold": {
+      "name": "白银眼罩",
+      "description": "",
+      "verified": "✅"
+    },
+    "silver-bullet": {
+      "name": "白银子弹",
+      "description": "",
+      "verified": "✅"
+    },
+    "slingshot": {
+      "name": "弹弓",
+      "description": "",
+      "verified": "✅"
+    },
+    "stone-effigy": {
+      "name": "岩石雕塑",
+      "description": "",
+      "verified": "✅"
+    },
+    "traitors-cowl": {
+      "name": "叛徒兜帽",
+      "description": "",
+      "verified": "✅"
+    },
+    "turret": {
+      "name": "炮塔",
+      "description": "",
+      "verified": "✅"
+    },
+    "upturned-hatchet": {
+      "name": "逆转手斧",
+      "description": "",
+      "verified": "✅"
+    },
+    "voodoo-doll": {
+      "name": "巫毒人偶",
+      "description": "",
+      "verified": "✅"
+    },
+    "wagon-wheel": {
+      "name": "车轮",
+      "description": "",
+      "verified": "✅"
+    },
+    "iron-onesie": {
+      "name": "黑铁连体服",
+      "description": "默认解锁。提供强化保护",
+      "verified": "✅"
+    },
+    "cornucopia": {
       "name": "丰饶之角",
       "description": "每次创造迷你弹珠时，生成0-1颗额外迷你弹珠",
       "verified": "✅"
     },
-    "elegant-spear": {
+    "gracious-impaler": {
       "name": "优雅刺枪",
       "description": "暴击有5%几率立即击杀敌人",
       "verified": "✅"
     },
-    "putrid-body": {
+    "odiferous-shell": {
       "name": "腐臭之躯",
       "description": "当你触碰敌人时,它们有50%几率立即死亡。",
       "verified": "✅"
     },
-    "phantom-dress": {
+    "phantom-regalia": {
       "name": "幻影华服",
       "description": "弹珠能够穿过敌人,直到命中屏幕上方的尽头区域。弹珠穿过敌人时将额外造成50%伤害。",
       "verified": "✅"
     },
-    "soul-reaper": {
+    "soul-reaver": {
       "name": "灵魂收割者",
       "description": "每次击杀敌人为你恢复30%,并且允许治疗效果超出最大生命值上限(1效率)。",
       "verified": "✅"
     },
-    "executioner-mask": {
-      "name": "处刑者面具",
+    "tormenters-mask": {
+      "name": "处刑者的面具",
       "description": "首次发现你(头顶显示惊叹号)时,敌人有10%几率立即死亡。",
       "verified": "✅"
     },
-    "holy-wings": {
+    "wings-of-the-anointed": {
       "name": "圣礼者之翼",
       "description": "弹珠移动速度加快40%,你的移动速度加快20%。无视场地上的环境危险影响。",
       "verified": "✅"
     },
-    "bullseye-cross": {
+    "deadeyes-cross": {
       "name": "靶眼十字架",
       "description": "暴击率提高至60%",
       "verified": "✅"
     },
-    "iron-onesie": {
-      "name": "黑铁连体衣",
-      "description": "默认解锁。提供强化保护",
-      "verified": "✅"
-    },
     "grotesque-artillery": {
-      "name": "诡异炮台",
+      "name": "畸变大炮",
       "description": "具有毁灭性火力的强化炮台系统",
       "verified": "✅"
     },
     "deadeyes-impaler": {
-      "name": "死眼刺客",
+      "name": "靶眼刺针",
       "description": "结合精准与致命以实现毁灭性暴击",
+      "verified": "✅"
+    },
+    "ardent-tire": {
+      "name": "热情之轮",
+      "description": "",
+      "verified": "✅"
+    },
+    "argent-stopwatch": {
+      "name": "白银怀表",
+      "description": "",
+      "verified": "✅"
+    },
+    "arrow-of-fate": {
+      "name": "命运之箭",
+      "description": "",
+      "verified": "✅"
+    },
+    "full-metal-rapier": {
+      "name": "全金属刺剑",
+      "description": "",
+      "verified": "✅"
+    },
+    "inglorious-hammer": {
+      "name": "可耻之锤",
+      "description": "",
+      "verified": "✅"
+    },
+    "remote-detonator": {
+      "name": "遥控引爆器",
+      "description": "",
+      "verified": "✅"
+    },
+    "windweaver": {
+      "name": "织风者",
+      "description": "",
       "verified": "✅"
     }
   }

@@ -2,6 +2,11 @@
 
 This document maps the Chinese ball names from the [official Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3589448013) to the ball IDs in our codebase.
 
+> **Superseded 2026-09-12.** The names here are the guide author's own translations,
+> not the strings the game ships; `zh-CN.json` now uses the game's localisation table
+> instead. The Element column is this project's own taxonomy and was never sourced
+> from the guide. Kept for provenance only.
+
 ## Base Balls (18 total)
 
 | Ball ID | English Name | Chinese Name (Steam) | Element |
