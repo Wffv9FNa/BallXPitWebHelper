@@ -50,3 +50,19 @@ def test_write_inside_game_dir_is_refused(tmp_path):
 def test_write_outside_game_dir_is_allowed(tmp_path):
     install = make_install(tmp_path / "game")
     gamedir.assert_outside_game_dir(install, tmp_path / "elsewhere" / "out.json")
+
+
+def test_invalid_explicit_does_not_fall_back_to_env(tmp_path):
+    invalid = tmp_path / "invalid"
+    invalid.mkdir()
+    valid = make_install(tmp_path / "env")
+    with pytest.raises(gamedir.GameDirError) as excinfo:
+        gamedir.resolve_game_dir(invalid, {"BALLXPIT_DIR": str(valid)})
+    assert str(invalid) in str(excinfo.value)
+
+
+def test_invalid_env_var_raises(tmp_path):
+    invalid = tmp_path / "invalid"
+    invalid.mkdir()
+    with pytest.raises(gamedir.GameDirError, match="BALLXPIT_DIR"):
+        gamedir.resolve_game_dir(None, {"BALLXPIT_DIR": str(invalid)})

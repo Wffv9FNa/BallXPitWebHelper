@@ -11,17 +11,22 @@ class GameDirError(RuntimeError):
 
 def resolve_game_dir(explicit=None, env=None):
     env = {} if env is None else env
-    candidates = (
-        explicit,
-        env.get("BALLXPIT_DIR"),
-        DEFAULT_GAME_DIR,
-    )
-    for candidate in candidates:
+    for candidate, source in ((explicit, "--game-dir"),
+                              (env.get("BALLXPIT_DIR"), "BALLXPIT_DIR")):
         if candidate is None:
             continue
         path = Path(candidate)
         if (path / LOCALISATION_ASSET).is_file():
             return path
+        raise GameDirError(
+            f"{source} points at {path}, which is not a Ball x Pit install: "
+            f"expected {LOCALISATION_ASSET.as_posix()} inside it. Resolution "
+            "order is --game-dir, then BALLXPIT_DIR, then the default "
+            f"{DEFAULT_GAME_DIR}; an explicitly provided location is never "
+            "silently replaced by a later one."
+        )
+    if (DEFAULT_GAME_DIR / LOCALISATION_ASSET).is_file():
+        return DEFAULT_GAME_DIR
     raise GameDirError(
         "Ball x Pit install not found. Tried --game-dir, then BALLXPIT_DIR, "
         f"then the default {DEFAULT_GAME_DIR}. Each must be a directory "
