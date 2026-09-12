@@ -2,12 +2,17 @@ import re
 
 REPO_MATCH_RATIO = 0.9
 
+def _range_pattern(*ranges):
+    body = "".join(f"\\U{low:08x}-\\U{high:08x}" for low, high in ranges)
+    return re.compile(f"[{body}]")
+
+
 SCRIPT_PATTERNS = (
-    ("kana", re.compile(r"[぀-ヿ]")),
-    ("hangul", re.compile(r"[가-힯ᄀ-ᇿ]")),
-    ("thai", re.compile(r"[฀-๿]")),
-    ("cyrillic", re.compile(r"[Ѐ-ӿ]")),
-    ("cjk", re.compile(r"[一-鿿]")),
+    ("kana", _range_pattern((0x3040, 0x30FF))),
+    ("hangul", _range_pattern((0xAC00, 0xD7AF), (0x1100, 0x11FF))),
+    ("thai", _range_pattern((0x0E00, 0x0E7F))),
+    ("cyrillic", _range_pattern((0x0400, 0x04FF))),
+    ("cjk", _range_pattern((0x4E00, 0x9FFF))),
 )
 
 UNIQUE_SCRIPT_LOCALES = {"kana": "ja", "hangul": "ko", "thai": "th"}
@@ -15,10 +20,9 @@ UNIQUE_SCRIPT_LOCALES = {"kana": "ja", "hangul": "ko", "thai": "th"}
 
 def script_hint(texts):
     joined = "".join(texts)
-    for name, pattern in SCRIPT_PATTERNS:
-        if pattern.search(joined):
-            return name
-    return "latin"
+    counts = {name: len(pattern.findall(joined)) for name, pattern in SCRIPT_PATTERNS}
+    best = max(counts, key=counts.get)
+    return best if counts[best] else "latin"
 
 
 def _columns(records):

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from extract import locales
 
 KNOWN = {"en": {"Landslide", "Catapult"}, "zh-CN": {"地裂", "投石车"}}
@@ -56,6 +58,36 @@ def test_second_chinese_column_does_not_steal_the_label():
     labels, _ = locales.identify_locales(records, KNOWN)
     assert labels[1] == "zh-CN"
     assert labels[2] == "locale_02"
+
+
+def test_script_hint_is_latin_without_a_match():
+    assert locales.script_hint(["Landslide", "Katapult"]) == "latin"
+
+
+def test_script_hint_picks_the_dominant_script_not_the_first():
+    korean = ["산사태 투석기 대포 방패" for _ in range(20)]
+    assert locales.script_hint(korean) == "hangul"
+    assert locales.script_hint(korean + ["ア"]) == "hangul"
+
+
+def test_a_stray_kana_does_not_relabel_a_korean_column():
+    korean = ["산사태 투석기", "대포 방패ア"]
+    records = build([["Landslide", "Catapult"], korean])
+    labels, evidence = locales.identify_locales(records, KNOWN)
+    assert labels[1] == "ko"
+    assert evidence["ko"]["scriptHint"] == "hangul"
+
+
+def test_japanese_kanji_do_not_outvote_its_kana():
+    japanese = ["地滑り", "カタパルト日本"]
+    records = build([["Landslide", "Catapult"], japanese])
+    labels, _ = locales.identify_locales(records, KNOWN)
+    assert labels[1] == "ja"
+
+
+def test_script_patterns_are_written_as_ascii_escapes():
+    source = Path(locales.__file__).read_bytes()
+    assert max(source) < 128
 
 
 TEN = {f"Name{n}" for n in range(10)}
