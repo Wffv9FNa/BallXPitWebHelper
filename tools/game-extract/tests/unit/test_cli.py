@@ -122,6 +122,16 @@ def test_corrupt_previous_artefact_exits_two(game, output, capsys):
     assert str(output) in err and "not valid JSON" in err
 
 
+def test_verify_against_a_corrupt_artefact_exits_two(game, output, capsys):
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text("{ truncated", encoding="utf-8")
+    assert cli.main(
+        ["verify", "--game-dir", str(game), "--output", str(output)]
+    ) == 2
+    err = capsys.readouterr().err
+    assert str(output) in err and "not valid JSON" in err
+
+
 def test_previous_artefact_without_strings_exits_two(game, output, capsys):
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({"meta": {"recordCount": 2}}), encoding="utf-8")
