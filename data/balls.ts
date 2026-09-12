@@ -208,6 +208,24 @@ export const baseBalls: Ball[] = [
     description: 'Heavy stone ball with solid damage',
     element: 'earth',
   imageUrl: getBallImageUrl('stone'),
+  },
+  {
+    id: 'flesh',
+    name: 'Flesh',
+    type: BallType.BASE,
+    category: BallCategory.UTILITY,
+    description: 'Speed increases by 25% per bounce',
+    element: 'bio',
+    imageUrl: getBallImageUrl('flesh')
+  },
+  {
+    id: 'time',
+    name: 'Time',
+    type: BallType.BASE,
+    category: BallCategory.STATUS,
+    description: 'Explodes into a time snare upon hitting an enemy, which stays on the field for 20 seconds and freezes enemies inside it',
+    element: 'time',
+    imageUrl: getBallImageUrl('time')
   }
 ];
 
@@ -901,6 +919,205 @@ export const evolvedBalls: Ball[] = [
     alternativeRecipes: [['laser-v', 'steel']],
     element: 'laser',
     imageUrl: getBallImageUrl('laser-cutter')
+  },
+  {
+    id: 'armageddon',
+    name: 'Armageddon',
+    type: BallType.EVOLVED,
+    category: BallCategory.DAMAGE,
+    description: 'Creates a meteor shower upon hitting an enemy. The meteor shower lasts for 5 seconds and deals 30-50 damage / second to enemies within a 3 tile radius',
+    recipe: ['inferno', 'storm'],
+    element: 'fire',
+    imageUrl: getBallImageUrl('armageddon')
+  },
+  {
+    id: 'banshee',
+    name: 'Banshee',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Curses all enemies while on the field when launched. Cursed enemies are dealt 150-300 after being hit 6 times',
+    recipe: ['phantom', 'wraith'],
+    element: 'spirit',
+    imageUrl: getBallImageUrl('banshee')
+  },
+  {
+    id: 'drill',
+    name: 'Drill',
+    type: BallType.EVOLVED,
+    category: BallCategory.DAMAGE,
+    description: 'Pierces enemies and deals 50% bonus damage until reaching the back of the field',
+    recipe: ['earthquake', 'iron'],
+    element: 'metal',
+    imageUrl: getBallImageUrl('drill')
+  },
+  {
+    id: 'elemental',
+    name: 'Elemental',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Applies a random status effect (burn, slow, or freeze) to nearby enemies on hit',
+    recipe: ['burn', 'wind', 'freeze', 'earthquake'],
+    imageUrl: getBallImageUrl('elemental')
+  },
+  {
+    id: 'erosion',
+    name: 'Erosion',
+    type: BallType.EVOLVED,
+    category: BallCategory.DAMAGE,
+    description: 'Passes through enemies. Deals 3% of enemy\'s current health as bonus damage on hit',
+    recipe: ['time', 'wind'],
+    element: 'earth',
+    imageUrl: getBallImageUrl('erosion')
+  },
+  {
+    id: 'flesh-mound',
+    name: 'Flesh Mound',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Emits a fleshy baby ball in a random direction every 1.0 seconds',
+    recipe: ['brood-mother', 'flesh'],
+    element: 'creature',
+    imageUrl: getBallImageUrl('flesh-mound')
+  },
+  {
+    id: 'heart-swallower',
+    name: 'Heart Swallower',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Saps enemies on hit, with a 40% chance of stealing 1 health and reducing their attack damage by 20%. Lifesteal chance only applies once per enemy',
+    recipe: ['bleed', 'ghost'],
+    element: 'blood',
+    imageUrl: getBallImageUrl('heart-swallower')
+  },
+  {
+    id: 'lightning-bug',
+    name: 'Lightning Bug',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Spawns a lightning bug each time it hits an enemy. Lightning bugs attack a random enemy, dealing 1-80 damage to up to 3 nearby enemies',
+    recipe: ['lightning', 'brood-mother'],
+    element: 'lightning',
+    imageUrl: getBallImageUrl('lightning-bug')
+  },
+  {
+    id: 'mosquito-kingdom',
+    name: 'Mosquito Kingdom',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Spawns 1-2 mosquitos each time it hits an enemy. Mosquitos attack a random enemy, dealing 100-150 damage each. If a mosquito kills an enemy, they steal 2 health',
+    recipe: ['mosquito-king', 'mosquito-swarm'],
+    element: 'blood',
+    imageUrl: getBallImageUrl('mosquito-kingdom')
+  },
+  {
+    id: 'offspring',
+    name: 'Offspring',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Splits into a clone on hit 4 times',
+    recipe: ['cell', 'flesh'],
+    element: 'bio',
+    imageUrl: getBallImageUrl('offspring')
+  },
+  {
+    id: 'petrify',
+    name: 'Petrify',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Petrifies all enemies within its sightline for 1.5 seconds when first launched, dealing 50-120',
+    recipe: ['stone', 'flesh'],
+    element: 'earth',
+    imageUrl: getBallImageUrl('petrify')
+  },
+  {
+    id: 'reaper',
+    name: 'Reaper',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Has a 10% chance to kill enemies on impact, healing you for 5 health',
+    recipe: ['soul-sucker', 'heart-swallower'],
+    element: 'spirit',
+    imageUrl: getBallImageUrl('reaper')
+  },
+  {
+    id: 'sniper',
+    name: 'Sniper',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Pierces enemies and shoots 3-7 sniper baby balls after hitting a wall. Sniper baby balls pierce enemies but are destroyed upon hitting a wall',
+    recipe: ['shotgun', 'assassin'],
+    element: 'metal',
+    imageUrl: getBallImageUrl('sniper')
+  },
+  {
+    id: 'time-bomb',
+    name: 'Time Bomb',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Throws a time bomb every few seconds, which explodes after a delay, dealing 80-120 damage to nearby enemies',
+    recipe: ['time', 'bomb'],
+    element: 'explosive',
+    imageUrl: getBallImageUrl('time-bomb')
+  },
+  {
+    id: 'timestop',
+    name: 'Timestop',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Freezes everything on the field for 5.0 seconds but destroys itself after hitting an enemy. Has a 30 second cooldown before it can be shot again',
+    recipe: ['time', 'freeze'],
+    element: 'time',
+    imageUrl: getBallImageUrl('timestop')
+  },
+  {
+    id: 'tumor',
+    name: 'Tumor',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Applies tumor on hit, Enemies with a tumor die after 40 seconds (except for bosses)',
+    recipe: ['radiation-beam', 'flesh'],
+    element: 'parasite',
+    imageUrl: getBallImageUrl('tumor')
+  },
+  {
+    id: 'venom',
+    name: 'Venom',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Applies 1 stack of venom on hit (max 8 stacks). Each stack deals 3-6 damage per second and slows down enemies',
+    recipe: ['poison', 'freeze'],
+    element: 'poison',
+    imageUrl: getBallImageUrl('venom')
+  },
+  {
+    id: 'warp',
+    name: 'Warp',
+    type: BallType.EVOLVED,
+    category: BallCategory.UTILITY,
+    description: 'After each hit, warps to a random spot on the field and speeds up by 5%',
+    recipe: ['time', 'light'],
+    element: 'void',
+    imageUrl: getBallImageUrl('warp')
+  },
+  {
+    id: 'x-ray',
+    name: 'X Ray',
+    type: BallType.EVOLVED,
+    category: BallCategory.STATUS,
+    description: 'Emits an X-shaped laser on hit, which deals 50-75 damage to enemies and applies 1 stack of radiation (max 5 stacks). Radiation causes enemies to receive 10% more damage from all sources per stack',
+    recipe: ['holy-laser', 'laser-beam'],
+    element: 'laser',
+    imageUrl: getBallImageUrl('x-ray')
+  },
+  {
+    id: 'zombie',
+    name: 'Zombie',
+    type: BallType.EVOLVED,
+    category: BallCategory.SPECIAL,
+    description: 'Infects enemies on hit, giving them a 40% chance to turn into a friendly zombie on death',
+    recipe: ['vampire', 'flesh'],
+    element: 'parasite',
+    imageUrl: getBallImageUrl('zombie')
   }
 ];
 

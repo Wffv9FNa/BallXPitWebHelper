@@ -707,7 +707,8 @@ export function getElementColor(element?: string): string {
     'frost-fire': '#6495ed',
     parasite: '#556b2f',
     nuclear: '#adff2f',
-    nature: '#32cd32'
+    nature: '#32cd32',
+    time: '#20b2aa'
   };
 
   return colorMap[element || ''] || '#888888';

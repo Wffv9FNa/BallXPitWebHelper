@@ -142,6 +142,20 @@ export const evolvableBasePassives: Passive[] = [
     type: PassiveType.BASE,
     description: 'Increase crit chance to 20% when hitting enemies on their right side',
     imageUrl: getPassiveImageUrl('emerald-hilted-dagger')
+  },
+  {
+    id: 'platinum-dumbbell',
+    name: 'Platinum Dumbbell',
+    type: PassiveType.BASE,
+    description: 'Balls deal 12% bonus damage until they hit the back of the field',
+    imageUrl: getPassiveImageUrl('platinum-dumbbell')
+  },
+  {
+    id: 'sword-breaker',
+    name: 'Sword Breaker',
+    type: PassiveType.BASE,
+    description: 'Balls deal 40% less damage, but gain 1% damage for each enemy on the field',
+    imageUrl: getPassiveImageUrl('sword-breaker')
   }
 ];
 
@@ -478,6 +492,62 @@ export const evolvedPassives: Passive[] = [
     description: 'Combines precision and lethality for devastating critical hits',
     recipe: ['gracious-impaler', 'deadeyes-cross'],
     imageUrl: getPassiveImageUrl('deadeyes-impaler')
+  },
+  {
+    id: 'ardent-tire',
+    name: 'Ardent Tire',
+    type: PassiveType.EVOLVED,
+    description: 'Each bounce increases ball speed by 10% and damage by 5%',
+    recipe: ['wagon-wheel', 'rubber-headband'],
+    imageUrl: getPassiveImageUrl('ardent-tire')
+  },
+  {
+    id: 'argent-stopwatch',
+    name: 'Argent Stopwatch',
+    type: PassiveType.EVOLVED,
+    description: 'Balls deal 200% damage, but damage decays by 20% each time they bounce (minimum 100%)',
+    recipe: ['hourglass', 'silver-bullet'],
+    imageUrl: getPassiveImageUrl('argent-stopwatch')
+  },
+  {
+    id: 'arrow-of-fate',
+    name: 'Arrow of Fate',
+    type: PassiveType.EVOLVED,
+    description: 'Projectiles no longer hurt you. Shoot 1-2 baby balls when hit by a projectile',
+    recipe: ['lovers-quiver', 'hand-mirror'],
+    imageUrl: getPassiveImageUrl('arrow-of-fate')
+  },
+  {
+    id: 'full-metal-rapier',
+    name: 'Full Metal Rapier',
+    type: PassiveType.EVOLVED,
+    description: 'Balls deal 1% more damage for each baby ball and enemy on the field',
+    recipe: ['iron-onesie', 'sword-breaker'],
+    imageUrl: getPassiveImageUrl('full-metal-rapier')
+  },
+  {
+    id: 'inglorious-hammer',
+    name: 'Inglorious Hammer',
+    type: PassiveType.EVOLVED,
+    description: 'When balls hit a wall or the back of the field, they hit a random enemy with 50% bonus damage',
+    recipe: ['platinum-dumbbell', 'upturned-hatchet'],
+    imageUrl: getPassiveImageUrl('inglorious-hammer')
+  },
+  {
+    id: 'remote-detonator',
+    name: 'Remote Detonator',
+    type: PassiveType.EVOLVED,
+    description: 'Enemies spawn a level 1 bomb ball upon dying',
+    recipe: ['pressure-valve', 'magnet'],
+    imageUrl: getPassiveImageUrl('remote-detonator')
+  },
+  {
+    id: 'windweaver',
+    name: 'Windweaver',
+    type: PassiveType.EVOLVED,
+    description: 'Shoot a level 1 wind ball every time you pick up a gem',
+    recipe: ['bottled-tornado', 'slingshot'],
+    imageUrl: getPassiveImageUrl('windweaver')
   }
 ];
 
