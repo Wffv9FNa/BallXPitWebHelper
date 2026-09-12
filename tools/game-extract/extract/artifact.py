@@ -2,13 +2,22 @@ import datetime
 import json
 import os
 import tempfile
+from collections.abc import Mapping, Sequence
 from pathlib import Path
+from typing import Any
 
 EXTRACTOR_VERSION = "1.0.0"
 
 
-def build_artifact(records, labels, evidence, sources, unity_version, extracted_at=None):
-    strings = {}
+def build_artifact(
+    records: Mapping[str, Sequence[str]],
+    labels: Mapping[int, str],
+    evidence: Mapping[str, Any],
+    sources: Sequence[dict[str, Any]],
+    unity_version: str,
+    extracted_at: str | None = None,
+) -> dict[str, Any]:
+    strings: dict[str, dict[str, str]] = {}
     for key, values in sorted(records.items()):
         if len(values) != len(labels):
             raise ValueError(
@@ -30,7 +39,7 @@ def build_artifact(records, labels, evidence, sources, unity_version, extracted_
     }
 
 
-def write_artifact(artifact, destination):
+def write_artifact(artifact: Mapping[str, Any], destination: str | Path) -> None:
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(artifact, ensure_ascii=False, indent=2) + "\n"

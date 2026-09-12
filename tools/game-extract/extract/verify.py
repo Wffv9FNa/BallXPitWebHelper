@@ -1,6 +1,8 @@
 import json
 import re
+from collections.abc import Mapping
 from pathlib import Path
+from typing import Any
 
 NAME_FIELD = re.compile(
     r"""^\s+name: (?:'([^']*)'|"([^"]*)")""", re.MULTILINE
@@ -11,7 +13,7 @@ class ArtifactError(RuntimeError):
     pass
 
 
-def _require(artifact, source, *path):
+def _require(artifact: Any, source: str | Path, *path: str) -> Any:
     cursor = artifact
     for depth, part in enumerate(path):
         where = "".join(f"[{step!r}]" for step in path[:depth]) or "the top level"
@@ -23,7 +25,7 @@ def _require(artifact, source, *path):
     return cursor
 
 
-def load_artifact(path):
+def load_artifact(path: str | Path) -> dict[str, Any] | None:
     path = Path(path)
     if not path.is_file():
         return None
@@ -43,7 +45,7 @@ def load_artifact(path):
     return artifact
 
 
-def repo_known_names(repo_root):
+def repo_known_names(repo_root: str | Path) -> dict[str, set[str]]:
     repo_root = Path(repo_root)
     sources = "".join(
         (repo_root / "data" / filename).read_text(encoding="utf-8")
@@ -61,8 +63,12 @@ def repo_known_names(repo_root):
     return {"en": english, "zh-CN": chinese}
 
 
-def check_oracle(artifact, known, source="the artefact"):
-    present = {locale: set() for locale in known}
+def check_oracle(
+    artifact: Mapping[str, Any],
+    known: Mapping[str, set[str]],
+    source: str | Path = "the artefact",
+) -> dict[str, list[str]]:
+    present: dict[str, set[str]] = {locale: set() for locale in known}
     for values in _require(artifact, source, "strings").values():
         for locale in known:
             if locale in values:
@@ -75,8 +81,11 @@ def check_oracle(artifact, known, source="the artefact"):
 
 
 def check_floor(
-    artifact, previous, source="the artefact", previous_source="the previous artefact"
-):
+    artifact: Mapping[str, Any],
+    previous: Mapping[str, Any] | None,
+    source: str | Path = "the artefact",
+    previous_source: str | Path = "the previous artefact",
+) -> str | None:
     if previous is None:
         return None
     was = _require(previous, previous_source, "meta", "recordCount")

@@ -1,8 +1,14 @@
 import re
+from collections.abc import Iterable, Mapping
+from typing import Any
+
+Records = Mapping[str, list[str]]
+Labels = dict[int, str]
+Evidence = dict[str, dict[str, Any]]
 
 REPO_MATCH_RATIO = 0.9
 
-def _range_pattern(*ranges):
+def _range_pattern(*ranges: tuple[int, int]) -> re.Pattern[str]:
     body = "".join(f"\\U{low:08x}-\\U{high:08x}" for low, high in ranges)
     return re.compile(f"[{body}]")
 
@@ -18,28 +24,30 @@ SCRIPT_PATTERNS = (
 UNIQUE_SCRIPT_LOCALES = {"kana": "ja", "hangul": "ko", "thai": "th"}
 
 
-def script_hint(texts):
+def script_hint(texts: Iterable[str]) -> str:
     joined = "".join(texts)
     counts = {name: len(pattern.findall(joined)) for name, pattern in SCRIPT_PATTERNS}
     best = max(counts, key=counts.get)
     return best if counts[best] else "latin"
 
 
-def _columns(records):
+def _columns(records: Records) -> list[list[str]]:
     rows = list(records.values())
     return [[row[index] for row in rows] for index in range(len(rows[0]))]
 
 
-def identify_locales(records, known):
+def identify_locales(
+    records: Records, known: Mapping[str, set[str]]
+) -> tuple[Labels, Evidence]:
     columns = _columns(records)
-    labels = {}
-    evidence = {}
-    taken = set()
+    labels: Labels = {}
+    evidence: Evidence = {}
+    taken: set[str] = set()
 
     for index, texts in enumerate(columns):
         present = set(texts)
         hint = script_hint(texts)
-        best_label = None
+        best_label: str | None = None
         best_matched = 0
         for label, expected in known.items():
             if label in taken or not expected:

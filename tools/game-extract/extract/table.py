@@ -11,7 +11,7 @@ class TableFormatError(RuntimeError):
     pass
 
 
-def _read_aligned_string(data, pos):
+def _read_aligned_string(data: bytes, pos: int) -> tuple[str, int]:
     if pos < 0 or pos + 4 > len(data):
         raise TableFormatError(f"truncated length prefix at offset {pos}")
     (length,) = struct.unpack_from("<I", data, pos)
@@ -28,7 +28,7 @@ def _read_aligned_string(data, pos):
         raise TableFormatError(f"not valid UTF-8 at offset {pos}: {exc}") from exc
 
 
-def parse_record(data, pos):
+def parse_record(data: bytes, pos: int) -> tuple[str, list[str], int]:
     key, cursor = _read_aligned_string(data, pos)
     if not key.startswith(KEY_PREFIX):
         raise TableFormatError(
@@ -42,7 +42,7 @@ def parse_record(data, pos):
             f"{key!r} declares {locale_count} locales, expected {EXPECTED_LOCALE_COUNT}"
         )
     cursor += 8
-    values = []
+    values: list[str] = []
     for index in range(locale_count):
         try:
             text, cursor = _read_aligned_string(data, cursor)
@@ -52,11 +52,11 @@ def parse_record(data, pos):
     return key, values, cursor
 
 
-def parse_table(data):
+def parse_table(data: bytes) -> dict[str, list[str]]:
     needle = KEY_PREFIX.encode("utf-8")
-    records = {}
+    records: dict[str, list[str]] = {}
     search_from = 0
-    previous_end = None
+    previous_end: int | None = None
     while True:
         found = data.find(needle, search_from)
         if found < 0:

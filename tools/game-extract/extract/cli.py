@@ -1,7 +1,9 @@
 import argparse
 import os
 import sys
+from collections.abc import Sequence
 from pathlib import Path
+from typing import Any
 
 from . import artifact as artifact_module
 from . import gamedir, locales, table, verify
@@ -11,7 +13,7 @@ DEFAULT_OUTPUT = REPO_ROOT / "data" / "game" / "strings.json"
 UNITY_VERSION = "6000.0.62f1"
 
 
-def _build(game_dir):
+def _build(game_dir: str | Path) -> tuple[dict[str, Any], dict[str, set[str]]]:
     data, source_meta = gamedir.read_source(game_dir, gamedir.LOCALISATION_ASSET)
     records = table.parse_table(data)
     known = verify.repo_known_names(REPO_ROOT)
@@ -22,7 +24,7 @@ def _build(game_dir):
     return built, known
 
 
-def main(argv=None):
+def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="game-extract")
     parser.add_argument("command", choices=["extract", "verify"])
     parser.add_argument("--game-dir", default=None)

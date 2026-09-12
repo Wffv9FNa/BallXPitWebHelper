@@ -1,5 +1,7 @@
 import hashlib
+from collections.abc import Mapping
 from pathlib import Path
+from typing import Any
 
 DEFAULT_GAME_DIR = Path(r"G:\Steam\steamapps\common\BALLxPIT")
 LOCALISATION_ASSET = Path("Balls_Data/resources.assets")
@@ -9,7 +11,9 @@ class GameDirError(RuntimeError):
     pass
 
 
-def resolve_game_dir(explicit=None, env=None):
+def resolve_game_dir(
+    explicit: str | Path | None = None, env: Mapping[str, str] | None = None
+) -> Path:
     env = {} if env is None else env
     for candidate, source in ((explicit, "--game-dir"),
                               (env.get("BALLXPIT_DIR"), "BALLXPIT_DIR")):
@@ -34,7 +38,9 @@ def resolve_game_dir(explicit=None, env=None):
     )
 
 
-def read_source(game_dir, relative):
+def read_source(
+    game_dir: str | Path, relative: str | Path
+) -> tuple[bytes, dict[str, Any]]:
     data = (Path(game_dir) / relative).read_bytes()
     return data, {
         "path": Path(relative).as_posix(),
@@ -43,7 +49,7 @@ def read_source(game_dir, relative):
     }
 
 
-def assert_outside_game_dir(game_dir, target):
+def assert_outside_game_dir(game_dir: str | Path, target: str | Path) -> None:
     try:
         Path(target).resolve().relative_to(Path(game_dir).resolve())
     except ValueError:
