@@ -66,3 +66,18 @@ def test_invalid_env_var_raises(tmp_path):
     invalid.mkdir()
     with pytest.raises(gamedir.GameDirError, match="BALLXPIT_DIR"):
         gamedir.resolve_game_dir(None, {"BALLXPIT_DIR": str(invalid)})
+
+
+def test_default_used_when_nothing_provided(tmp_path, monkeypatch):
+    install = make_install(tmp_path / "default")
+    monkeypatch.setattr(gamedir, "DEFAULT_GAME_DIR", install)
+    assert gamedir.resolve_game_dir(None, {}) == install
+
+
+def test_missing_default_raises_naming_all_three_sources(tmp_path, monkeypatch):
+    monkeypatch.setattr(gamedir, "DEFAULT_GAME_DIR", tmp_path / "absent")
+    with pytest.raises(gamedir.GameDirError) as excinfo:
+        gamedir.resolve_game_dir(None, {})
+    message = str(excinfo.value)
+    assert "--game-dir" in message
+    assert "BALLXPIT_DIR" in message
