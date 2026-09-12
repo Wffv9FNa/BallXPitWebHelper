@@ -39,6 +39,7 @@ def test_meta_carries_provenance():
     assert meta["unityVersion"] == "6000.0.62f1"
     assert meta["recordCount"] == 2
     assert meta["localeCount"] == 16
+    assert meta["extractorVersion"] == "1.0.0"
     assert meta["sources"] == SOURCES
     assert meta["localeEvidence"]["en"]["matched"] == 2
 

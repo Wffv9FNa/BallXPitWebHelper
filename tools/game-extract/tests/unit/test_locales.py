@@ -58,6 +58,30 @@ def test_second_chinese_column_does_not_steal_the_label():
     assert labels[2] == "locale_02"
 
 
+TEN = {f"Name{n}" for n in range(10)}
+
+
+def partial_match_records():
+    half = [f"Name{n}" for n in range(5)] + [f"Other{n}" for n in range(5)]
+    nine = [f"Name{n}" for n in range(9)] + ["Other9"]
+    return build([half, nine])
+
+
+def test_ratio_admits_nine_of_ten_and_rejects_five_of_ten():
+    labels, evidence = locales.identify_locales(partial_match_records(), {"en": TEN})
+    assert labels[0] == "locale_00"
+    assert labels[1] == "en"
+    assert evidence["en"]["matched"] == 9
+    assert evidence["en"]["conflicts"] == 1
+
+
+def test_a_ratio_of_one_rejects_nine_of_ten(monkeypatch):
+    monkeypatch.setattr(locales, "REPO_MATCH_RATIO", 1.0)
+    labels, evidence = locales.identify_locales(partial_match_records(), {"en": TEN})
+    assert labels[1] == "locale_01"
+    assert "en" not in evidence
+
+
 def test_labels_are_unique():
     records = build([["Landslide", "Catapult"], ["地滑り", "カタパルト"], ["日本語", "テスト"]])
     labels, _ = locales.identify_locales(records, KNOWN)
