@@ -780,7 +780,7 @@ export const evolvedBalls: Ball[] = [
     category: BallCategory.STATUS,
     description: 'Applies 1 stack of disease to units it hits (max 8 stacks). Disease lasts for 6 seconds, dealing 3-6 damage per second',
     recipe: ['poison', 'ghost'],
-    alternativeRecipes: [['poison', 'cell']],
+    alternativeRecipes: [['poison', 'cell'], ['poison', 'bleed']],
     element: 'bio',
     imageUrl: getBallImageUrl('virus'),
     stats: {
