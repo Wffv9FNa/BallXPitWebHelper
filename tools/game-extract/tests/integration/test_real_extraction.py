@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -8,7 +9,7 @@ from extract import cli, gamedir, locales, table, verify
 REPO_ROOT = Path(__file__).resolve().parents[4]
 
 try:
-    GAME_DIR = gamedir.resolve_game_dir()
+    GAME_DIR = gamedir.resolve_game_dir(None, dict(os.environ))
 except gamedir.GameDirError:
     GAME_DIR = None
 
