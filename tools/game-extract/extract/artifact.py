@@ -8,10 +8,14 @@ EXTRACTOR_VERSION = "1.0.0"
 
 
 def build_artifact(records, labels, evidence, sources, unity_version, extracted_at=None):
-    strings = {
-        key: {labels[index]: text for index, text in enumerate(values)}
-        for key, values in sorted(records.items())
-    }
+    strings = {}
+    for key, values in sorted(records.items()):
+        if len(values) != len(labels):
+            raise ValueError(
+                f"{key!r} carries {len(values)} locale values but {len(labels)} "
+                "labels were resolved; the parse was partial"
+            )
+        strings[key] = {labels[index]: text for index, text in enumerate(values)}
     return {
         "meta": {
             "extractedAt": extracted_at or datetime.date.today().isoformat(),
@@ -19,7 +23,7 @@ def build_artifact(records, labels, evidence, sources, unity_version, extracted_
             "extractorVersion": EXTRACTOR_VERSION,
             "recordCount": len(strings),
             "localeCount": len(labels),
-            "sources": sources,
+            "sources": sorted(sources, key=lambda source: source["path"]),
             "localeEvidence": {name: evidence[name] for name in sorted(evidence)},
         },
         "strings": strings,

@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from extract import artifact
 
 RECORDS = {
@@ -42,6 +44,34 @@ def test_meta_carries_provenance():
     assert meta["extractorVersion"] == "1.0.0"
     assert meta["sources"] == SOURCES
     assert meta["localeEvidence"]["en"]["matched"] == 2
+
+
+def test_a_short_value_row_raises_and_names_the_key():
+    records = {"Generated/hupg_a_name": ["A", "甲"]}
+    with pytest.raises(ValueError, match="hupg_a_name"):
+        artifact.build_artifact(records, LABELS, EVIDENCE, SOURCES, "6000.0.62f1")
+
+
+def test_a_long_value_row_raises_and_names_the_key():
+    records = {"Generated/hupg_a_name": ["A"] * 17}
+    with pytest.raises(ValueError, match="hupg_a_name"):
+        artifact.build_artifact(records, LABELS, EVIDENCE, SOURCES, "6000.0.62f1")
+
+
+def test_sources_are_sorted_by_path():
+    unsorted = [
+        {"path": "z/last.assets", "sha256": "cd" * 32, "bytes": 3},
+        {"path": "a/first.assets", "sha256": "ab" * 32, "bytes": 1},
+        {"path": "m/middle.assets", "sha256": "ef" * 32, "bytes": 2},
+    ]
+    built = artifact.build_artifact(
+        RECORDS, LABELS, EVIDENCE, unsorted, "6000.0.62f1", extracted_at="2026-09-12"
+    )
+    assert [source["path"] for source in built["meta"]["sources"]] == [
+        "a/first.assets",
+        "m/middle.assets",
+        "z/last.assets",
+    ]
 
 
 def test_write_is_deterministic(tmp_path):
