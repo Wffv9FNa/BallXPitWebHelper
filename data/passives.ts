@@ -84,7 +84,7 @@ export const evolvableBasePassives: Passive[] = [
     description: 'You can heal past your max health at 20% efficiency',
     imageUrl: getPassiveImageUrl('everflowing-goblet')
   },
-  // Tormenter's Mask ingredients
+  // Tormenters Mask ingredients
   {
     id: 'spiked-collar',
     name: 'Spiked Collar',
@@ -455,7 +455,7 @@ export const evolvedPassives: Passive[] = [
   },
   {
     id: 'tormenters-mask',
-    name: "Tormenter's Mask",
+    name: 'Tormenters Mask',
     type: PassiveType.EVOLVED,
     description: 'Enemies have a 10% chance of dying immediately the first time they detect you',
     recipe: ['spiked-collar', 'crown-of-thorns'],
